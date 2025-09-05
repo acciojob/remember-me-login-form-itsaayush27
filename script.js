@@ -1,1 +1,47 @@
 //your JS code here. If required.
+ const usernameField = document.getElementById("username");
+    const passwordField = document.getElementById("password");
+    const checkbox = document.getElementById("checkbox");
+    const submitBtn = document.getElementById("submit");
+    const existingBtn = document.getElementById("existing");
+    const form = document.getElementById("loginForm");
+
+    // On page load, check if credentials are saved
+    window.onload = function () {
+      const savedUser = localStorage.getItem("username");
+      const savedPass = localStorage.getItem("password");
+
+      if (savedUser && savedPass) {
+        existingBtn.style.display = "block"; // Show button
+      }
+    };
+
+    // Handle form submit
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // prevent form reload
+
+      const username = usernameField.value.trim();
+      const password = passwordField.value.trim();
+
+      alert("Logged in as " + username);
+
+      if (checkbox.checked) {
+        // Save credentials
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+        existingBtn.style.display = "block";
+      } else {
+        // Remove previously saved credentials
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
+        existingBtn.style.display = "none";
+      }
+    });
+
+    // Handle existing user login
+    existingBtn.addEventListener("click", function () {
+      const savedUser = localStorage.getItem("username");
+      if (savedUser) {
+        alert("Logged in as " + savedUser);
+      }
+    });
